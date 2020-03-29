@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  registry:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.registry-redirect-web-secure.redirectscheme.scheme=https"
+      - "traefik.http.routers.registry.rule=Host(`${REGISTRY_URL}`)"
+      - "traefik.http.routers.registry.entryPoints=web"
+      - "traefik.http.routers.registry.middlewares=registry-redirect-web-secure"
+      - "traefik.http.routers.registrysecure.rule=Host(`${REGISTRY_URL}`)"
+      - "traefik.http.routers.registrysecure.entryPoints=websecure"
+      - "traefik.http.routers.registrysecure.tls=true"
+      - "traefik.http.routers.registrysecure.tls.certresolver=myresolver"
+      - "traefik.http.services.registrysecure.loadBalancer.server.port=5000"
+      - "traefik.http.middlewares.limit.buffering.maxRequestBodyBytes=2147484000"
