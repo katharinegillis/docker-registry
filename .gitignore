@@ -1,2 +1,10 @@
 # IDE project files
 .idea
+
+# Ignore registry data
+/data/*
+!/data/empty
+
+# Ignore auth credentials
+/auth/*
+!/auth/empty

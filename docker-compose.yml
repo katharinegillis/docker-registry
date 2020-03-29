@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  registry:
+    image: registry:2
+    container_name: registry
+    restart: always
+    environment:
+      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
+      REGISTRY_AUTH: htpasswd
+      REGISTRY_AUTH_HTPASSWD_REALM: Registry
+      REGISTRY_AUTH_HTPASSWD_PATH: /auth/registry.password
+      REGISTRY_HTTP_HOST: registry.localhost
+    volumes:
+      - ./data:/data
+      - ./auth:/auth
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true

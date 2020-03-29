@@ -1,0 +1,10 @@
+version: "3.7"
+
+services:
+  registry:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.registry.rule=Host(`registry.localhost`)"
+      - "traefik.http.routers.registry.entryPoints=web"
+      - "traefik.http.services.registry.loadBalancer.server.port=5000"
+      - "traefik.http.middlewares.limit.buffering.maxRequestBodyBytes=2147484000"
